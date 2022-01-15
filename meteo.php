@@ -11,9 +11,9 @@
     # Récupération et conversion des données météorologiques
     $name = $json->name;
     $meteo = $json -> weather[0] -> main;
-    $tempC = $json -> main -> temp;
+    $tempC = number_format($json -> main -> temp);
     $wind = $json -> wind -> speed ;
-    $windkmh = $wind*3.6;
+    $windkmh = number_format($wind*3.6);
     $humidity = $json -> main -> humidity;
     $sunrise = $json -> sys -> sunrise;
     $sunset = $json -> sys -> sunset;
