@@ -25,4 +25,16 @@ function load_image(){
 			}*/
         }
 	});
+
+	var dtImage = document.getElementById("dt_image");
+	$.ajax({
+		url: './get_date_image.php',
+		type: 'GET',
+		dataType: "json",
+		contentType: "application/json",
+		success: function (data) {
+			var dt = moment(data, "YYYY_MM_DD__hh_mm_ss").locale('fr-FR').format('LLLL');
+			dtImage.innerHTML=dt;
+        }
+	});
 }
