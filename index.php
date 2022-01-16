@@ -59,8 +59,11 @@
 				<?php include 'meteo.php' ?>
 			</div>
 			<div class="col-8">
-				<canvas id="canvas" width="750" height="500" style="padding-top: 25px;"></canvas>
+			<br><br>
+				<canvas id="canvas" width="750" height="500" moz-opaque
+				        onmousemove="cnvs_getCoordinates(event)" onmouseout="cnvs_clearCoordinates()"></canvas>
 				<p id="dt_image"></p>
+				<div id="xycoordinates"></div>
     			<!--canvas id="zoom" width="150" height="100"></canvas-->
 			</div>
 		</div>
@@ -128,7 +131,7 @@
     </div>
 	
     <!-- moteur de recherche -->
-    <div>
+    <!--div>
 		<p>Moteur de recherche d'images</p>
    
 		<form action="form.php" method ="GET" >
@@ -141,12 +144,12 @@
 		
 		<input type="submit">
 		<input type="reset">
-    </div>
+    </div-->
     </form>
 	
  	<script type="text/javascript">
 		load_image();
-		intervalID = setInterval(load_image, 60000);
+		intervalID = setInterval(load_image, 300000);
 	</script>
    
     </body>
