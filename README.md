@@ -4,7 +4,7 @@ Ce projet a été mis en place pour apporter une source d'informations suppléme
 
 ![Skywatch](Skywatch.png)
 
-## CODEV 2021 - Affichage de la caméra plein ciel
+## CODEVSI 2021 - Affichage de la caméra plein ciel
 ### Etudiants
 - [François COUSTAU-GUILHOU](francois.coustau-guilhou@imt-atlantique.net)
 - [Guillaume MARTIN](guillaume.martin2@imt-atlantique.net)
