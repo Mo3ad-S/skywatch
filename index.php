@@ -171,8 +171,7 @@
 						<td colspan="8" style="text-align: right">Ephéméride des planètes</td>
 					</tr>
 				  </tfoot>
-				  <button id="clearButton" onclick=clearRedCircles()>Effacer</button>
-
+				  <input id="clear" type=button value="Effacer">
 				</table>
 			</div>
 		</div>
@@ -317,6 +316,9 @@
 		ctx.arc(z.x, z.y, 20, 0, 2 * Math.PI);
 		ctx.strokeStyle = "red";
 		ctx.stroke();
+		document.getElementById('clear').addEventListener('click', function() {
+          	ctx.clearRect(0, 0, c.width, c.height);
+        	}, false);
 	}
 
 		const d = new Date();
@@ -592,14 +594,6 @@
 			document.getElementById("v_sirius").innerHTML = "non";
 			document.getElementById("b_sirius").disabled = true;
 		}
-	</script>
-
-	<script>
-	function clearRedCircles() {
-		var c = getElementbyID("redcircles");
-		var ctx = c.getContext("2d");
-		context.clearRect(0, 0, c.width, c.height);
-	}
 	</script>
     </body>
 </html>
