@@ -301,10 +301,10 @@
 		}
 		else {
 			if ((-Math.tan(Math.PI/2 - az*(Math.PI/180))*c+240) >= 240) {
-				return {x:Math.round(-c+375), y:Math.round((Math.tan(Math.PI/2 - az*(Math.PI/180))*c+240))};
+				return {x:Math.round(c+375), y:Math.round((Math.tan(Math.PI/2 - az*(Math.PI/180))*c+240))};
 			}
 			else {
-				return {x:Math.round(c+375), y:Math.round((-Math.tan(Math.PI/2 - az*(Math.PI/180))*c+240))};
+				return {x:Math.round(-c+375), y:Math.round((-Math.tan(Math.PI/2 - az*(Math.PI/180))*c+240))};
 			}
 		}
 	}
