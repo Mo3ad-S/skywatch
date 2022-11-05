@@ -24,9 +24,5 @@ foreach($files as $file) {
 }
 
 echo $lastDirectory.'/'.$lastFile;
-#echo "</br>";
-
-#echo json_encode('data: png;base64,'.base64_encode(file_get_contents($lastDirectory.'/'.$lastFile)));
-
 
 ?>
