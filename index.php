@@ -74,7 +74,7 @@
 				<a target="blank" style="text-decoration:none;" href="http://www.calendrier-lunaire.net/" class="image-lune"><img src="http://www.calendrier-lunaire.net/module/LYWR2YW5jZWQtMTI0LWgyLTE2MjAxOTk0OTAuODIxNy0jMTUwOTFmLTMwMC0jZGVlYWI0LTE2MjAxOTk0OTAtMS0xMA.png" alt="La Lune" title="La Lune" /></a>
 			</div>
 			<div class="col-8">
-				<table class="table table-hover">
+				<table class="table table-hover" id="tb-planets">
 					<!-- tableau météo -->
 				  <thead>
 					<tr>

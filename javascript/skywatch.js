@@ -51,3 +51,34 @@ function cnvs_clearCoordinates()
 {
 	document.getElementById("xycoordinates").innerHTML="";
 }
+
+function initPlanete() {
+	$processor.init ();
+
+	let planets=[{ name: "Mercure", apparent: $moshier.body.mercury.apparent, transit: $moshier.body.mercury.transit}
+		, { name: "Vénus", apparent: $moshier.body.venus.apparent, transit: $moshier.body.venus.transit}
+		, { name: "Mars", apparent: $moshier.body.mars.apparent, transit: $moshier.body.mars.transit}
+		, { name: "Jupiter", apparent: $moshier.body.jupiter.apparent, transit: $moshier.body.jupiter.transit}
+		, { name: "Saturne", apparent: $moshier.body.saturn.apparent, transit: $moshier.body.saturn.transit}
+		, { name: "Uranus", apparent: $moshier.body.uranus.apparen, transit: $moshier.body.uranus.transitt}
+		, { name: "Neptune", apparent: $moshier.body.neptune.apparent, transit: $moshier.body.neptune.transit}
+	];
+	// sun, mercury, venus, moon, mars, jupiter, saturn, uranus, neptune, pluto, chiron, sirius
+	$("#tb-planets").empty();
+	var tabHeader="<thead><tr><th></th>",
+	    tabLever="<tr><td>Lever</td>",
+		tabAD="<tr><td>Ascension Droite</td>",
+		tabDeec="<tr><td>Déclinaison</td>";
+	planets.forEach(function(planet) {
+		tabHeader=tabHeader+"<th>"+planet.name+"</th>";
+		tabLever=tabLever+"<tr>"+planet.transitt.approxRiseUT.hours+":"+planet.transitt.approxRiseUT.minutes+"</tr>";
+		tabAD=tabAD+"<tr>"+planet.apparent.dRA+"</tr>";
+		tabDeec=tabDeec+"<tr>"+planet.apparent.dDec+"</tr>";
+		$processor.calc (date, planet);
+		document.write(`<p style="white-space: pre-wrap">${JSON.stringify(body.position, '', 2)}</p>`);
+	});
+	tabHeader=tabHeader+"</tr></thead>";
+		
+	document.write(`<p style="white-space: pre-wrap">${JSON.stringify(body.position, '', 2)}</p>`);
+	
+}
