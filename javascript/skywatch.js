@@ -1,6 +1,7 @@
+const zeroPad = (num, places) => String(num).padStart(places, '0')
+
 function load_image(){
 	//var image  = document.getElementById('image_skywatch');
-	var canvas = document.getElementById("canvas");
 	//var ctx = canvas.getContext("2d");
 	//var img = new Image();
 
@@ -17,8 +18,15 @@ function load_image(){
         }
 	});*/
 
+	var canvas = document.getElementById("canvas");
+	canvas.style="background-size: cover; background-image: url(img/2021_10_09__05_39_16.jpg)";
+
+	var dt = moment("2021_10_09__05_39_16", "YYYY_MM_DD__hh_mm_ss").locale('fr-FR').format('LLLL');
 	var dtImage = document.getElementById("dt_image");
-	$.ajax({
+	dtImage.innerHTML=dt.charAt(0).toUpperCase() + dt.slice(1);
+	initPlanete( moment("2021_10_09__05_39_16", "YYYY_MM_DD__hh_mm_ss"));
+
+	/*$.ajax({
 		url: './get_date_image.php',
 		type: 'GET',
 		dataType: "json",
@@ -29,7 +37,7 @@ function load_image(){
 			var dt = moment(data.substr(11), "YYYY_MM_DD__hh_mm_ss").locale('fr-FR').format('LLLL');
 			dtImage.innerHTML=dt.charAt(0).toUpperCase() + dt.slice(1);
         }
-	});
+	});*/
 }
 
 function cnvs_getCoordinates(e)
@@ -52,33 +60,51 @@ function cnvs_clearCoordinates()
 	document.getElementById("xycoordinates").innerHTML="";
 }
 
-function initPlanete() {
+function initPlanete(dt) {
+	var date = {year: dt.year(), month: dt.month(), day: dt.day(), hours: dt.hour(), minutes: dt.minute(), seconds: dt.second()};
+
+	$const.tlong = -4.572820; // longitude
+	$const.glat = 48.36093; // latitude
+
 	$processor.init ();
 
-	let planets=[{ name: "Mercure", apparent: $moshier.body.mercury.apparent, transit: $moshier.body.mercury.transit}
-		, { name: "Vénus", apparent: $moshier.body.venus.apparent, transit: $moshier.body.venus.transit}
-		, { name: "Mars", apparent: $moshier.body.mars.apparent, transit: $moshier.body.mars.transit}
-		, { name: "Jupiter", apparent: $moshier.body.jupiter.apparent, transit: $moshier.body.jupiter.transit}
-		, { name: "Saturne", apparent: $moshier.body.saturn.apparent, transit: $moshier.body.saturn.transit}
-		, { name: "Uranus", apparent: $moshier.body.uranus.apparen, transit: $moshier.body.uranus.transitt}
-		, { name: "Neptune", apparent: $moshier.body.neptune.apparent, transit: $moshier.body.neptune.transit}
+	//name: "Mercure", apparent: $moshier.body.mercury.apparent, transit: $moshier.body.mercury.transit}
+	let planets=[{ name: "Mercure", body: $moshier.body.mercury }
+		, { name: "Vénus", body: $moshier.body.venus }
+		, { name: "Mars", body: $moshier.body.mars }
+		, { name: "Jupiter", body: $moshier.body.jupiter }
+		, { name: "Saturne", body: $moshier.body.saturn }
+		, { name: "Uranus", body: $moshier.body.uranus }
+		, { name: "Neptune", body: $moshier.body.neptune }
 	];
 	// sun, mercury, venus, moon, mars, jupiter, saturn, uranus, neptune, pluto, chiron, sirius
 	$("#tb-planets").empty();
 	var tabHeader="<thead><tr><th></th>",
 	    tabLever="<tr><td>Lever</td>",
 		tabAD="<tr><td>Ascension Droite</td>",
-		tabDeec="<tr><td>Déclinaison</td>";
+		tabDec="<tr><td>Déclinaison</td>";
+
 	planets.forEach(function(planet) {
+		$processor.calc (date, planet.body);
 		tabHeader=tabHeader+"<th>"+planet.name+"</th>";
-		tabLever=tabLever+"<tr>"+planet.transitt.approxRiseUT.hours+":"+planet.transitt.approxRiseUT.minutes+"</tr>";
-		tabAD=tabAD+"<tr>"+planet.apparent.dRA+"</tr>";
-		tabDeec=tabDeec+"<tr>"+planet.apparent.dDec+"</tr>";
-		$processor.calc (date, planet);
-		document.write(`<p style="white-space: pre-wrap">${JSON.stringify(body.position, '', 2)}</p>`);
+		tabLever=tabLever+"<td>"+zeroPad(planet.body.position.altaz.transit.approxRiseUT.hours,2)+"h"+zeroPad(planet.body.position.altaz.transit.approxRiseUT.minutes,2)+"</td>";
+		tabAD=tabAD+"<td>"+planet.body.position.apparent.dRA.toFixed(5)+"</td>";
+		tabDec=tabDec+"<td>"+planet.body.position.apparent.dDec.toFixed(5)+"</td>";
 	});
 	tabHeader=tabHeader+"</tr></thead>";
+	tabLever=tabLever+"</tr>";
+	tabAD=tabAD+"</tr>";
+	tabDec=tabDec+"</tr>";
+
+	let htmlTab=tabHeader+"<tbody>"+tabLever+tabAD+tabDec+"</tbody>\
+	<tfoot>\
+		<tr>\
+			<td colspan='8' style='text-align: right'>Ephéméride des planètes</td>\
+		</tr>\
+	</tfoot>";
+
+	console.info(htmlTab);
 		
-	document.write(`<p style="white-space: pre-wrap">${JSON.stringify(body.position, '', 2)}</p>`);
+	$("#tb-planets").append(htmlTab);
 	
 }
