@@ -19,12 +19,12 @@ function load_image(){
 	});*/
 
 	var canvas = document.getElementById("canvas");
-	canvas.style="background-size: cover; background-image: url(img/2021_10_09__05_39_16.jpg)";
+	canvas.style="background-size: cover; background-image: url(img/2022_05_31__01_15_36.jpg)";
 
-	var dt = moment("2021_10_09__05_39_16", "YYYY_MM_DD__hh_mm_ss").locale('fr-FR').format('LLLL');
+	var dt = moment("2022_05_31__01_15_36", "YYYY_MM_DD__hh_mm_ss").locale('fr-FR').format('LLLL');
 	var dtImage = document.getElementById("dt_image");
 	dtImage.innerHTML=dt.charAt(0).toUpperCase() + dt.slice(1);
-	initPlanete( moment("2021_10_09__05_39_16", "YYYY_MM_DD__hh_mm_ss"));
+	initPlanete( moment("2022_05_31__01_15_36", "YYYY_MM_DD__hh_mm_ss"));
 
 	/*$.ajax({
 		url: './get_date_image.php',
@@ -47,7 +47,7 @@ function cnvs_getCoordinates(e)
 	x=e.clientX - bounds.left+0.5;
 	y=e.clientY - bounds.top;
 	document.getElementById("xycoordinates").innerHTML="Coordonn&eacute;es (x,y): (" + x + "," + y + ")";
-	
+	//https://astronomie.baillet.org/ephemerides/systeme-solaire/jupiter.php
 	/*var ctx = canvas.getContext("2d");
 	ctx.beginPath();
 	ctx.arc(x, y, 10, 0, 2 * Math.PI);
