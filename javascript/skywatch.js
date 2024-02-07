@@ -18,13 +18,14 @@ function load_image(){
         }
 	});*/
 
+	let image="2021_04_07__22_24_29";
 	var canvas = document.getElementById("canvas");
-	canvas.style="background-size: cover; background-image: url(img/2022_05_31__01_15_36.jpg)";
+	canvas.style="background-size: cover; background-image: url(img/"+image+".jpg)";
 
-	var dt = moment("2022_05_31__01_15_36", "YYYY_MM_DD__hh_mm_ss").locale('fr-FR').format('LLLL');
+	var dt = moment(image, "YYYY_MM_DD__hh_mm_ss").locale('fr-FR').format('LLLL');
 	var dtImage = document.getElementById("dt_image");
 	dtImage.innerHTML=dt.charAt(0).toUpperCase() + dt.slice(1);
-	initPlanete( moment("2022_05_31__01_15_36", "YYYY_MM_DD__hh_mm_ss"));
+	initPlanete( moment(image, "YYYY_MM_DD__hh_mm_ss"));
 
 	/*$.ajax({
 		url: './get_date_image.php',
@@ -80,7 +81,8 @@ function initPlanete(dt) {
 	// sun, mercury, venus, moon, mars, jupiter, saturn, uranus, neptune, pluto, chiron, sirius
 	$("#tb-planets").empty();
 	var tabHeader="<thead><tr><th></th>",
-	    tabLever="<tr><td>Lever</td>",
+	    tabLever="<tr><td>Lever (UT)</td>",
+		tabCoucher="<tr><td>Coucher (UT)</td>",
 		tabAD="<tr><td>Ascension Droite</td>",
 		tabDec="<tr><td>Déclinaison</td>";
 
@@ -88,22 +90,23 @@ function initPlanete(dt) {
 		$processor.calc (date, planet.body);
 		tabHeader=tabHeader+"<th>"+planet.name+"</th>";
 		tabLever=tabLever+"<td>"+zeroPad(planet.body.position.altaz.transit.approxRiseUT.hours,2)+"h"+zeroPad(planet.body.position.altaz.transit.approxRiseUT.minutes,2)+"</td>";
-		tabAD=tabAD+"<td>"+planet.body.position.apparent.dRA.toFixed(5)+"</td>";
-		tabDec=tabDec+"<td>"+planet.body.position.apparent.dDec.toFixed(5)+"</td>";
+		tabCoucher=tabCoucher+"<td>"+zeroPad(planet.body.position.altaz.transit.approxSetUT.hours,2)+"h"+zeroPad(planet.body.position.altaz.transit.approxSetUT.minutes,2)+"</td>";
+		tabAD=tabAD+"<td>"+planet.body.position.apparent.ra.hours+"h"+planet.body.position.apparent.ra.minutes+"m"+planet.body.position.apparent.ra.seconds+"</td>";
+		tabDec=tabDec+"<td>"+planet.body.position.apparent.dec.degree+"°"+planet.body.position.apparent.dec.minutes+"'"+planet.body.position.apparent.dec.seconds.toFixed(0)+"''</td>";
 	});
 	tabHeader=tabHeader+"</tr></thead>";
 	tabLever=tabLever+"</tr>";
+	tabCoucher=tabCoucher+"</tr>";
 	tabAD=tabAD+"</tr>";
 	tabDec=tabDec+"</tr>";
 
-	let htmlTab=tabHeader+"<tbody>"+tabLever+tabAD+tabDec+"</tbody>\
+	let htmlTab=tabHeader+"<tbody>"+tabLever+tabCoucher+tabAD+tabDec+"</tbody>\
 	<tfoot>\
 		<tr>\
 			<td colspan='8' style='text-align: right'>Ephéméride des planètes</td>\
 		</tr>\
 	</tfoot>";
 
-	console.info(htmlTab);
 		
 	$("#tb-planets").append(htmlTab);
 	
