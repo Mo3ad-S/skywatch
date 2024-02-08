@@ -27,12 +27,12 @@
                 </div>
                 <br>
                 <div class="row g-3">
-                    <label for="inputEmail4" class="form-label">Latitude</label>
+                    <label for="lat" class="form-label">Latitude</label>
                     <input type="text" class="form-control" id="lat" value="48.36093">
                 </div>
                 <br>
                 <div class="row g-3">
-                    <label for="inputEmail4" class="form-label">Longitude</label>
+                    <label for="long" class="form-label">Longitude</label>
                     <input type="text" class="form-control" id="long" value="-4.572820">
                 </div>
                 <br>
@@ -57,14 +57,29 @@
         $("#dt").val(today);
 
         function calcul() {
-            var date = {year: 1986, month: 1, day: 1, hours: 1, minutes: 52, seconds: 0};
-            date =  { year:2021, month: 4, day: 7, hours: 22, minutes: 24, seconds: 29};
+            let today=$("#dt").val(); //2024-02-08T16:21
+            //console.info(today);
+            //var date = {year: 1986, month: 1, day: 1, hours: 1, minutes: 52, seconds: 0};
+            date =  {
+                year: Number(today.substr(0,4)),
+                month: Number(today.substr(5,2)),
+                day: Number(today.substr(8,2)),
+                hours: Number(today.substr(11,2)),
+                minutes: Number(today.substr(14,2)),
+                seconds: 0
+            };
+            //console.info(date);
 
-            $const.tlong = -71.10; // longitude
-            $const.glat = 42.37; // latitude
+            //$const.tlong = -71.10; // longitude
+            //$const.glat = 42.37; // latitude
+            //$const.tlong = -4.572820; // longitude
+            //$const.glat = 48.36093; // latitude
 
-            $const.tlong = -4.572820; // longitude
-            $const.glat = 48.36093; // latitude
+            var planet = $("#inputPlanet").val();
+            $const.tlong = Number($("#long").val());
+            $const.glat = Number($("#lat").val());
+
+ 
 
             $processor.init ();
 
