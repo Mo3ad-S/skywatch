@@ -79,3 +79,7 @@ th, td {
 table th:hover {
     background-color: rgba(0,0,0,.075);
 }
+
+.th_planet {
+    cursor: pointer;
+}
